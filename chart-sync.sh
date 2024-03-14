@@ -41,10 +41,11 @@ then
     # Create a pull request from the new branch to the main branch
     PR_TITLE="Sync changes from ${INPUT_SOURCE_REPO} for release ${RELEASE_TAG}"
     PR_BODY="This pull request syncs changes from ${INPUT_SOURCE_REPO} for release ${RELEASE_TAG}."
+    TARGET_REPO_NAME=${INPUT_TARGET_REPO#https://github.com/}
     curl -X POST \
     -H "Authorization: token ${INPUT_GIT_TARGET_TOKEN}" \
     -d "{\"title\":\"$PR_TITLE\",\"body\":\"$PR_BODY\",\"head\":\"$NEW_BRANCH_NAME\",\"base\":\"main\"}" \
-    "https://api.github.com/repos/$INPUT_TARGET_REPO/pulls"
+    "https://api.github.com/repos/$TARGET_REPO_NAME/pulls"
 
     echo "Pull request created successfully."
 else
