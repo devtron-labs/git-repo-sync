@@ -1,6 +1,7 @@
 if [[ "$RELEASE_TYPE" == "major" || "$RELEASE_TYPE" == "minor" || "$RELEASE_TYPE" == "patch" ]]; 
 then
     echo $RELEASE_TYPE
+    echo $RELEASE_TAG
     echo "Starting PR creation..."
     # Clone the source repository
     git clone $INPUT_SOURCE_REPO
