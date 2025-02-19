@@ -9,6 +9,9 @@ inputs:
   RELEASE_TYPE:
     description: 'RELEASE TYPE'
     required: true
+  RELEASE_TAG:
+    description: 'RELEASE TAG'
+    required: true
   RELEASE_BRANCH:
     description: 'RELEASE BRNACH to check RELEASE TYPE'
     required: true
@@ -72,3 +75,4 @@ runs:
         INPUT_WORKING_DIR: ${{ inputs.working-dir }}
         RELEASE_TYPE: ${{ inputs.RELEASE_TYPE }}
         RELEASE_BRANCH: ${{ inputs.RELEASE_BRANCH }}
+        RELEASE_TAG: ${{ inputs.RELEASE_TAG}}
