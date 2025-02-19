@@ -1,8 +1,4 @@
-RELEASE_FILE_CONTENTS=$(curl -L -s "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${RELEASE_BRANCH}/manifests/release.txt")
-RELEASE_TYPE=$(echo $RELEASE_FILE_CONTENTS | awk '{print $1}')
-RELEASE_TAG=$(echo $RELEASE_FILE_CONTENTS | awk '{print $3}')
-
-if [[ "$RELEASE_TYPE" == "stable" ]]; 
+if [[ "$RELEASE_TYPE" == "major" || "$RELEASE_TYPE" == "minor" || "$RELEASE_TYPE" == "patch" ]]; 
 then
     echo "Starting PR creation..."
     # Clone the source repository
