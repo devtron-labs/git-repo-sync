@@ -75,4 +75,4 @@ runs:
         INPUT_WORKING_DIR: ${{ inputs.working-dir }}
         RELEASE_TYPE: ${{ inputs.RELEASE_TYPE }}
         RELEASE_BRANCH: ${{ inputs.RELEASE_BRANCH }}
-        RELEASE_TAG: ${{ inputs.RELEASE_TAG}}
+        RELEASE_TAG: ${{ inputs.RELEASE_TAG }}
