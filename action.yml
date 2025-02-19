@@ -6,6 +6,9 @@ branding:
   color: gray-dark
 
 inputs:
+  RELEASE_TYPE:
+    description: 'RELEASE TYPE'
+    required: true
   RELEASE_BRANCH:
     description: 'RELEASE BRNACH to check RELEASE TYPE'
     required: true
@@ -67,4 +70,5 @@ runs:
         INPUT_GITEE_TARGET_USEREMAIL: ${{ inputs.target-useremail }}
         INPUT_SOURCE_DIR: ${{ inputs.git-source-dir }}
         INPUT_WORKING_DIR: ${{ inputs.working-dir }}
+        RELEASE_TYPE: ${{ inputs.RELEASE_TYPE }}
         RELEASE_BRANCH: ${{ inputs.RELEASE_BRANCH }}
