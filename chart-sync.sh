@@ -48,8 +48,7 @@ then
     TARGET_REPO_NAME=${INPUT_TARGET_REPO#https://github.com/}
     echo $INPUT_TARGET_REPO
     echo $INPUT_GIT_TARGET_TOKEN | gh auth login --with-token
-    gh pr create --title "Sync changes from $NEW_BRANCH_NAME" --body "This pull request syncs changes from $NEW_BRANCH_NAME" --base main --head $NEW_BRANCH_NAME --repo $INPUT_TARGET_REPO
-
+    gh pr create --title "$PR_TITLE" --body "$PR_BODY" --base main --head $NEW_BRANCH_NAME --repo $INPUT_TARGET_REPO
     echo "Pull request created successfully."
 else
     echo "No sync operation due to beta"
