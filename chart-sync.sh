@@ -35,7 +35,6 @@ then
     git add .
 
     git commit -m "Syncing Repo from branch ${NEW_BRANCH_NAME}"
-    echo "git commit ho gya"
     git push target $NEW_BRANCH_NAME
 
     echo $NEW_BRANCH_NAME
