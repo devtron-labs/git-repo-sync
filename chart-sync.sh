@@ -9,7 +9,7 @@ fi
 if [[ "$RELEASE_TYPE" == "major" || "$RELEASE_TYPE" == "minor" || "$RELEASE_TYPE" == "patch" ]]; 
 then
     echo $RELEASE_TYPE
-    echo $version
+    echo $RELEASE_TAG
     echo "Starting PR creation..."
     # Clone the source repository
     git clone $INPUT_SOURCE_REPO
@@ -48,9 +48,9 @@ then
     echo $NEW_BRANCH_NAME
     
     # Create a pull request from the new branch to the main branch
-    PR_TITLE="Sync changes from ${INPUT_SOURCE_REPO} for release ${version}"
+    PR_TITLE="Sync changes from ${INPUT_SOURCE_REPO} for release ${RELEASE_TAG}"
     echo $PR_TITLE
-    PR_BODY="This pull request syncs changes from ${INPUT_SOURCE_REPO} for release ${version}."
+    PR_BODY="This pull request syncs changes from ${INPUT_SOURCE_REPO} for release ${RELEASE_TAG}."
     echo $PR_BODY
     TARGET_REPO_NAME=${INPUT_TARGET_REPO#https://github.com/}
     echo $INPUT_TARGET_REPO
