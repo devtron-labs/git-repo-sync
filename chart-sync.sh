@@ -1,3 +1,11 @@
+version=$(curl -s https://raw.githubusercontent.com/devtron-labs/devtron/refs/heads/main/charts/devtron/Chart.yaml | grep "appVersion" | awk -F ': ' '{print $2}' )
+
+if [[ "$version" == *"-rc"* ]]; then
+  RELEASE_TYPE="beta"
+else
+  RELEASE_TYPE="minor"
+fi
+
 if [[ "$RELEASE_TYPE" == "major" || "$RELEASE_TYPE" == "minor" || "$RELEASE_TYPE" == "patch" ]]; 
 then
     echo $RELEASE_TYPE
