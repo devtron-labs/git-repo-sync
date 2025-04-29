@@ -3,10 +3,10 @@ version=$(curl -s https://raw.githubusercontent.com/devtron-labs/devtron/refs/he
 if [[ "$version" == *"-rc"* ]]; then
   RELEASE_TYPE="beta"
 else
-  RELEASE_TYPE="minor"
+  RELEASE_TYPE="stable"
 fi
 
-if [[ "$RELEASE_TYPE" == "major" || "$RELEASE_TYPE" == "minor" || "$RELEASE_TYPE" == "patch" ]]; 
+if [[ "$RELEASE_TYPE" != "beta" ]]; 
 then
     echo $version
     echo "Starting PR creation..."
