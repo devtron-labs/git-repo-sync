@@ -1,9 +1,14 @@
-RELEASE_FILE_CONTENTS=$(curl -L -s "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${RELEASE_BRANCH}/manifests/release.txt")
-RELEASE_TYPE=$(echo $RELEASE_FILE_CONTENTS | awk '{print $1}')
-RELEASE_TAG=$(echo $RELEASE_FILE_CONTENTS | awk '{print $3}')
+version=$(curl -s https://raw.githubusercontent.com/devtron-labs/devtron/refs/heads/main/charts/devtron/Chart.yaml | grep "appVersion" | awk -F ': ' '{print $2}' )
 
-if [[ "$RELEASE_TYPE" == "stable" ]]; 
+if [[ "$version" == *"-rc"* ]]; then
+  RELEASE_TYPE="beta"
+else
+  RELEASE_TYPE="stable"
+fi
+
+if [[ "$RELEASE_TYPE" != "beta" ]]; 
 then
+    echo $version
     echo "Starting PR creation..."
     # Clone the source repository
     git clone $INPUT_SOURCE_REPO
@@ -35,17 +40,21 @@ then
     
     # Commit the changes and push them to the new branch
     git add .
+
     git commit -m "Syncing Repo from branch ${NEW_BRANCH_NAME}"
     git push target $NEW_BRANCH_NAME
+
+    echo $NEW_BRANCH_NAME
     
     # Create a pull request from the new branch to the main branch
-    PR_TITLE="Sync changes from ${INPUT_SOURCE_REPO} for release ${RELEASE_TAG}"
-    PR_BODY="This pull request syncs changes from ${INPUT_SOURCE_REPO} for release ${RELEASE_TAG}."
+    PR_TITLE="Sync changes from ${INPUT_SOURCE_REPO} for release ${version}"
+    echo $PR_TITLE
+    PR_BODY="This pull request syncs changes from ${INPUT_SOURCE_REPO} for release ${version}."
+    echo $PR_BODY
     TARGET_REPO_NAME=${INPUT_TARGET_REPO#https://github.com/}
-
+    echo $INPUT_TARGET_REPO
     echo $INPUT_GIT_TARGET_TOKEN | gh auth login --with-token
-    gh pr create --title "Sync changes from $NEW_BRANCH_NAME" --body "This pull request syncs changes from $NEW_BRANCH_NAME" --base main --head $NEW_BRANCH_NAME --repo $INPUT_TARGET_REPO
-
+    gh pr create --title "$PR_TITLE" --body "$PR_BODY" --base main --head $NEW_BRANCH_NAME --repo $INPUT_TARGET_REPO
     echo "Pull request created successfully."
 else
     echo "No sync operation due to beta"
